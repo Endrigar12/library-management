@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Lends List</title>
+</head>
+<body>
+<h1 align="center">Lends list</h1>
+<br/>
+<table border="1" cellpadding="10">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Lend date</th>
+        <th>Suggested return date</th>
+        <th>Return date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="lend : ${lends}">
+        <td th:text="${lend.id}">Id</td>
+        <td th:text="${lend.lend_date}">Lend date</td>
+        <td th:text="${lend.suggested_return_date}">Suggested return date</td>
+        <td th:text="${lend.return_date}">Return date</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

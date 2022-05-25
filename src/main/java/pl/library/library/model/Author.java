@@ -1,9 +1,6 @@
 package pl.library.library.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Author {
@@ -12,12 +9,12 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String first_name;
-    private String last_name;
+    private String surname;
 
-    public Author(Long id, String first_name, String last_name){
+    public Author(Long id, String first_name, String surname){
         this.id = id;
         this.first_name = first_name;
-        this.last_name = last_name;
+        this.surname = surname;
     }
 
     public Author(){
@@ -39,12 +36,12 @@ public class Author {
         this.first_name = first_name;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setSurname(String last_name) {
+        this.surname = surname;
     }
 
     @Override
@@ -52,7 +49,7 @@ public class Author {
         return "Author{" +
                 "id=" + id +
                 ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", surname='" + surname + '\'' +
                 '}';
     }
 }

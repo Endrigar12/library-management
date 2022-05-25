@@ -13,14 +13,14 @@
         <tr>
             <th>Id</th>
             <th>First name</th>
-            <th>Last name</th>
+            <th>Surname</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="author : ${authors}">
             <td th:text="${author.id}">Id</td>
             <td th:text="${author.first_name}">First name</td>
-            <td th:text="${author.last_name}">Last name</td>
+            <td th:text="${author.surname}">Surname</td>
         </tr>
         </tbody>
     </table>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Readers List</title>
+</head>
+<body>
+<h1 align="center">Readers list</h1>
+<br/>
+<table border="1" cellpadding="10">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>First name</th>
+        <th>Surname</th>
+        <th>Phone number</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Province</th>
+        <th>Postal code</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reader : ${readers}">
+        <td th:text="${reader.id}">Id</td>
+        <td th:text="${reader.first_name}">First name</td>
+        <td th:text="${reader.surname}">Surname</td>
+        <td th:text="${reader.phone_number}">Phone number</td>
+        <td th:text="${reader.email}">Email</td>
+        <td th:text="${reader.address}">Address</td>
+        <td th:text="${reader.province}">Province</td>
+        <td th:text="${reader.postal_code}">Postal code</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
