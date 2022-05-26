@@ -15,14 +15,18 @@
         <th>Lend date</th>
         <th>Suggested return date</th>
         <th>Return date</th>
+        <th>Book</th>
+        <th>reader</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="lend : ${lends}">
         <td th:text="${lend.id}">Id</td>
-        <td th:text="${lend.lend_date}">Lend date</td>
-        <td th:text="${lend.suggested_return_date}">Suggested return date</td>
-        <td th:text="${lend.return_date}">Return date</td>
+        <td th:text="${#dates.format(lend.lend_date, 'dd-MM-yyyy')}"></td>
+        <td th:text="${#dates.format(lend.suggested_return_date, 'dd-MM-yyyy')}"></td>
+        <td th:text="${#dates.format(lend.return_date, 'dd-MM-yyyy')}"></td>
+        <td th:text="${lend.book?.title}"></td>
+        <td th:text="${lend.reader?.first_name+' '+lend.reader?.surname}"></td>
     </tr>
     </tbody>
 </table>

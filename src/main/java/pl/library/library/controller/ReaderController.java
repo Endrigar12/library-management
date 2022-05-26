@@ -20,8 +20,8 @@ public class ReaderController {
         List<Reader> readerList = readerService.listAll();
         model.addAttribute("readers", readerList);
 
-        readerList.add(new Reader(1L, "example firstname1", "example surrname1", "123456789", "example@example.com", "adress1", "province1", "postal1"));
-        readerList.add(new Reader(1L, "example firstname2", "example surrname2", "987654321", "example2@example.com", "adress2", "province2", "postal2"));
+//        readerList.add(new Reader(1L, "example firstname1", "example surrname1", "123456789", "example@example.com", "adress1", "province1", "postal1"));
+//        readerList.add(new Reader(1L, "example firstname2", "example surrname2", "987654321", "example2@example.com", "adress2", "province2", "postal2"));
         return "reader";
     }
 }

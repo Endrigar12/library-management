@@ -20,8 +20,8 @@ public class AuthorController {
         List<Author> authorList = authorService.listAll();
         model.addAttribute("authors", authorList);
 
-        authorList.add(new Author(1L, "example author1", "example author11"));
-        authorList.add(new Author(2L, "example author2", "example author22"));
+//        authorList.add(new Author(1L, "example author1", "example author11"));
+//        authorList.add(new Author(2L, "example author2", "example author22"));
         return "author";
     }
 }

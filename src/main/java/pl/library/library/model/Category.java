@@ -1,9 +1,7 @@
 package pl.library.library.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Category {
@@ -12,6 +10,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<Book> book;
 
     public Category(Long id, String name){
         this.id = id;

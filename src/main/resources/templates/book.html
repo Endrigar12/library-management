@@ -15,6 +15,9 @@
         <th>Title</th>
         <th>Years of release</th>
         <th>Description</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Publisher</th>
     </tr>
     </thead>
     <tbody>
@@ -23,6 +26,9 @@
         <td th:text="${book.title}">Title</td>
         <td th:text="${book.year_of_release}">Years of release</td>
         <td th:text="${book.description}">Description</td>
+        <td th:text="${book.author?.first_name+' '+book.author.surname}"></td>  <!--  ? pominiecie wartosci null, program sie nie wysypuje-->
+        <td th:text="${book.category?.name}"></td>
+        <td th:text="${book.publisher?.name}"></td>
     </tr>
     </tbody>
 </table>

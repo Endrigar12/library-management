@@ -1,9 +1,7 @@
 package pl.library.library.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Reader {
@@ -18,6 +16,9 @@ public class Reader {
     private String address; //ulica lub osiedle
     private String province; // wojewodztwo
     private String postal_code; //kod pocztowy
+
+    @OneToMany(mappedBy = "reader")
+    private List<Lend> lend;
 
     public Reader(Long id, String first_name, String surname, String phone_number, String email, String address, String province, String postal_code) {
         this.id = id;

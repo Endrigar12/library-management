@@ -20,8 +20,8 @@ public class CategoryController {
         List<Category> categoryList = categoryService.listAll();
         model.addAttribute("categories", categoryList);
 
-        categoryList.add(new Category(1L, "example categoryName1"));
-        categoryList.add(new Category(2L, "example categoryName2"));
+//        categoryList.add(new Category(1L, "example categoryName1"));
+//        categoryList.add(new Category(2L, "example categoryName2"));
         return "category";
     }
 }

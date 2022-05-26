@@ -1,9 +1,7 @@
 package pl.library.library.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -14,6 +12,18 @@ public class Book {
     private String title;
     private int year_of_release;
     private String description;
+
+    @ManyToOne
+    private Author author; // wiele ksiażek ma 1 autora
+
+    @ManyToOne
+    private Category category;
+
+    @ManyToOne
+    private Publisher publisher;
+
+    @OneToMany(mappedBy = "book")
+    private List<Lend> lend;
 
     public Book(Long id, String title, int year_of_release, String description) {
         this.id = id;
@@ -55,6 +65,38 @@ public class Book {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
+    public List<Lend> getLend() {
+        return lend;
+    }
+
+    public void setLend(List<Lend> lend) {
+        this.lend = lend;
     }
 
     @Override

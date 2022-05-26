@@ -1,6 +1,7 @@
 package pl.library.library.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Author {
@@ -10,6 +11,10 @@ public class Author {
     private Long id;
     private String first_name;
     private String surname;
+
+
+    @OneToMany(mappedBy = "author")
+    private List<Book> book;
 
     public Author(Long id, String first_name, String surname){
         this.id = id;

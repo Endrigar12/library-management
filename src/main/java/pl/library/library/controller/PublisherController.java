@@ -20,8 +20,8 @@ public class PublisherController {
         List<Publisher> publisherList = publisherService.listAll();
         model.addAttribute("publishers", publisherList);
 
-        publisherList.add(new Publisher(1L, "example publisherName1"));
-        publisherList.add(new Publisher(2L, "example publisherName2"));
+//        publisherList.add(new Publisher(1L, "example publisherName1"));
+//        publisherList.add(new Publisher(2L, "example publisherName2"));
         return "publisher";
     }
 }

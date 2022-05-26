@@ -1,9 +1,6 @@
 package pl.library.library.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -15,6 +12,12 @@ public class Lend {
     private Date lend_date;
     private Date suggested_return_date;
     private Date return_date;
+
+    @ManyToOne
+    private Book book; // Jedna książka można wiele razy wypozyczyc
+
+    @ManyToOne
+    private Reader reader; // Jeden czytelnik może wiele wypozyczyc
 
     public Lend(Long id, Date lend_date, Date suggested_return_date, Date return_date) {
         this.id = id;
@@ -56,6 +59,22 @@ public class Lend {
 
     public void setReturn_date(Date return_date) {
         this.return_date = return_date;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public Reader getReader() {
+        return reader;
+    }
+
+    public void setReader(Reader reader) {
+        this.reader = reader;
     }
 
     @Override
