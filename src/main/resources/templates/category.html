@@ -12,17 +12,26 @@
 
 <h1 align="center">Categories list</h1>
 <br/>
+<a href="/category_new">Add new category</a>
+<br/>
+<br/>
 <table border="1" cellpadding="10">
     <thead>
     <tr>
         <th>Id</th>
         <th>Name</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="category : ${categories}">
         <td th:text="${category.id}">Id</td>
         <td th:text="${category.name}">Name</td>
+        <td>
+            <a th:href="@{/category_edit/{id}(id=${category.id})}">Edit</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{/category_delete/{id}(id=${category.id})}">Delete</a>
+        </td>
     </tr>
     </tbody>
 </table>

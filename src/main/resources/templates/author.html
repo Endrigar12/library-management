@@ -12,12 +12,16 @@
 
         <h1 align="center">Authors list</h1>
         <br/>
+        <a href="/author_new">Add new author</a>
+        <br/>
+        <br/>
     <table border="1" cellpadding="10">
         <thead>
         <tr>
             <th>Id</th>
             <th>First name</th>
             <th>Surname</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +29,11 @@
             <td th:text="${author.id}">Id</td>
             <td th:text="${author.first_name}">First name</td>
             <td th:text="${author.surname}">Surname</td>
+            <td>
+                <a th:href="@{/author_edit/{id}(id=${author.id})}">Edit</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{/author_delete/{id}(id=${author.id})}">Delete</a>
+            </td>
         </tr>
         </tbody>
     </table>

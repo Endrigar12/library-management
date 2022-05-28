@@ -17,7 +17,16 @@ public class AuthorService {
         return authorRepository.findAll();
     }
 
+    public void save(Author author) {
+        authorRepository.save(author);
+    }
+
     public Author get(long id) {
         return authorRepository.findById(id).get();
     }
+
+    public void delete(long id) {
+        authorRepository.deleteById(id);
+    }
+
 }

@@ -45,7 +45,7 @@ public class Author {
         return surname;
     }
 
-    public void setSurname(String last_name) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 

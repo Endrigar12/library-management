@@ -3,7 +3,11 @@ package pl.library.library.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import pl.library.library.model.Author;
 import pl.library.library.service.AuthorService;
 
@@ -24,4 +28,34 @@ public class AuthorController {
 //        authorList.add(new Author(2L, "example author2", "example author22"));
         return "author";
     }
+
+    @RequestMapping("/author_new")
+    public String addNewAuthor(Model model) {
+        Author author = new Author();
+        model.addAttribute("author", author);
+
+        return "author_new";
+    }
+
+    @RequestMapping(value = "/save_author", method = RequestMethod.POST)
+    public String saveAuthor(@ModelAttribute("author") Author author) {
+        authorService.save(author);
+
+        return "redirect:/authors";
+    }
+
+    @RequestMapping("/author_edit/{id}")
+    public ModelAndView editAuthor(@PathVariable(name = "id") Long id) {
+        ModelAndView mav = new ModelAndView("author_edit");
+        Author author = authorService.get(id);
+        mav.addObject("author", author);
+        return mav;
+    }
+
+    @RequestMapping("/author_delete/{id}")
+    public String deleteAuthor(@PathVariable(name = "id") Long id) {
+        authorService.delete(id);
+        return "redirect:/authors";
+    }
+
 }
