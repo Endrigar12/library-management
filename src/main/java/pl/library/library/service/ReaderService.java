@@ -17,7 +17,15 @@ public class ReaderService {
         return readerRepository.findAll();
     }
 
+    public void save(Reader reader) {
+        readerRepository.save(reader);
+    }
+
     public Reader get(long id) {
         return readerRepository.findById(id).get();
+    }
+
+    public void delete(long id) {
+        readerRepository.deleteById(id);
     }
 }

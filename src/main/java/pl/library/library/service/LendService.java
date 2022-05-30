@@ -20,4 +20,8 @@ public class LendService {
     public Lend get(long id) {
         return lendRepository.findById(id).get();
     }
+
+    public void delete(long id) {
+        lendRepository.deleteById(id);
+    }
 }

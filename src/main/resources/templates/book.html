@@ -11,6 +11,9 @@
         <div th:replace="fragments/header :: header"></div>
         <h1 align="center">Books list</h1>
         <br/>
+        <a href="/book_new">Add new book</a>
+        <br/>
+        <br/>
     <table border="1" cellpadding="10">
         <thead>
             <tr>
@@ -21,6 +24,7 @@
                 <th>Author</th>
                 <th>Category</th>
                 <th>Publisher</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +36,11 @@
                 <td th:text="${book.author?.first_name+' '+book.author.surname}"></td>  <!--  ? pominiecie wartosci null, program sie nie wysypuje-->
                 <td th:text="${book.category?.name}"></td>
                 <td th:text="${book.publisher?.name}"></td>
+                <td>
+                    <a th:href="@{/book_edit/{id}(id=${book.id})}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a th:href="@{/book_delete/{id}(id=${book.id})}">Delete</a>
+                </td>
             </tr>
         </tbody>
     </table>

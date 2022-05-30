@@ -17,7 +17,15 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public void save(Book book) {
+        bookRepository.save(book);
+    }
+
     public Book get(long id) {
         return bookRepository.findById(id).get();
+    }
+
+    public void delete(long id) {
+        bookRepository.deleteById(id);
     }
 }

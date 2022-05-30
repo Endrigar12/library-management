@@ -3,6 +3,7 @@ package pl.library.library.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.library.library.model.Lend;
 import pl.library.library.service.LendService;
@@ -22,5 +23,11 @@ public class LendController {
 
 //        lendList.add(new Lend(1L, "example categoryName1"));
         return "lend";
+    }
+
+    @RequestMapping("/lend_delete/{id}")
+    public String deleteLend(@PathVariable(name = "id") Long id) {
+        lendService.delete(id);
+        return "redirect:/lends";
     }
 }

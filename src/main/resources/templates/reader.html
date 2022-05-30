@@ -12,6 +12,9 @@
 
 <h1 align="center">Readers list</h1>
 <br/>
+<a href="/reader_new">Add new reader</a>
+<br/>
+<br/>
 <table border="1" cellpadding="10">
     <thead>
     <tr>
@@ -23,6 +26,7 @@
         <th>Address</th>
         <th>Province</th>
         <th>Postal code</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -35,6 +39,11 @@
         <td th:text="${reader.address}">Address</td>
         <td th:text="${reader.province}">Province</td>
         <td th:text="${reader.postal_code}">Postal code</td>
+        <td>
+            <a th:href="@{/reader_edit/{id}(id=${reader.id})}">Edit</a>
+            &nbsp;&nbsp;&nbsp;
+            <a th:href="@{/reader_delete/{id}(id=${reader.id})}">Delete</a>
+        </td>
     </tr>
     </tbody>
 </table>

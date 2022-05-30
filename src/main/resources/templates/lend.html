@@ -20,7 +20,8 @@
         <th>Suggested return date</th>
         <th>Return date</th>
         <th>Book</th>
-        <th>reader</th>
+        <th>Reader</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -31,6 +32,9 @@
         <td th:text="${#dates.format(lend.return_date, 'dd-MM-yyyy')}"></td>
         <td th:text="${lend.book?.title}"></td>
         <td th:text="${lend.reader?.first_name+' '+lend.reader?.surname}"></td>
+        <td>
+            <a th:href="@{/lend_delete/{id}(id=${lend.id})}">Delete</a>
+        </td>
     </tr>
     </tbody>
 </table>
