@@ -6,19 +6,20 @@
         <title>Authors List</title>
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
     </head>
     <body>
         <div th:replace="fragments/header :: header"></div>
 
         <h1 align="center">Authors list</h1>
         <br/>
-        <a href="/author_new">Add new author</a>
+        <a href="/author_new" class="btn btn-primary">Add new author</a>
         <br/>
         <br/>
     <table border="1" cellpadding="10">
         <thead>
         <tr>
-            <th>Id</th>
+            <th>Lp</th>
             <th>First name</th>
             <th>Surname</th>
             <th>Action</th>
@@ -26,13 +27,13 @@
         </thead>
         <tbody>
         <tr th:each="author : ${authors}">
-            <td th:text="${author.id}">Id</td>
+            <td th:text="${author.id}">Lp</td>
             <td th:text="${author.first_name}">First name</td>
             <td th:text="${author.surname}">Surname</td>
             <td>
-                <a th:href="@{/author_edit/{id}(id=${author.id})}">Edit</a>
+                <a th:href="@{/author_edit/{id}(id=${author.id})}" class="btn btn-primary">Edit</a>
                 &nbsp;&nbsp;&nbsp;
-                <a th:href="@{/author_delete/{id}(id=${author.id})}">Delete</a>
+                <a th:href="@{/author_delete/{id}(id=${author.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>

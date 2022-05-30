@@ -6,13 +6,14 @@
     <title>Publishers List</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 
 <h1 align="center">Publishers list</h1>
 <br/>
-<a href="/publisher_new">Add new publisher</a>
+<a href="/publisher_new" class="btn btn-primary">Add new publisher</a>
 <br/>
 <br/>
 <table border="1" cellpadding="10">
@@ -28,9 +29,9 @@
         <td th:text="${publisher.id}">Id</td>
         <td th:text="${publisher.name}">Name</td>
         <td>
-            <a th:href="@{/publisher_edit/{id}(id=${publisher.id})}">Edit</a>
+            <a th:href="@{/publisher_edit/{id}(id=${publisher.id})}" class="btn btn-primary">Edit</a>
             &nbsp;&nbsp;&nbsp;
-            <a th:href="@{/publisher_delete/{id}(id=${publisher.id})}">Delete</a>
+            <a th:href="@{/publisher_delete/{id}(id=${publisher.id})}" class="btn btn-danger">Delete</a>
         </td>
     </tr>
     </tbody>

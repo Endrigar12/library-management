@@ -6,13 +6,14 @@
     <title>Categories List</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 
 <h1 align="center">Categories list</h1>
 <br/>
-<a href="/category_new">Add new category</a>
+<a href="/category_new" class="btn btn-primary">Add new category</a>
 <br/>
 <br/>
 <table border="1" cellpadding="10">
@@ -28,9 +29,9 @@
         <td th:text="${category.id}">Id</td>
         <td th:text="${category.name}">Name</td>
         <td>
-            <a th:href="@{/category_edit/{id}(id=${category.id})}">Edit</a>
+            <a th:href="@{/category_edit/{id}(id=${category.id})}" class="btn btn-primary">Edit</a>
             &nbsp;&nbsp;&nbsp;
-            <a th:href="@{/category_delete/{id}(id=${category.id})}">Delete</a>
+            <a th:href="@{/category_delete/{id}(id=${category.id})}" class="btn btn-danger">Delete</a>
         </td>
     </tr>
     </tbody>

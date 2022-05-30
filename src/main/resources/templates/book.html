@@ -6,12 +6,13 @@
         <title>Books List</title>
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
     </head>
     <body>
         <div th:replace="fragments/header :: header"></div>
         <h1 align="center">Books list</h1>
         <br/>
-        <a href="/book_new">Add new book</a>
+        <a href="/book_new" class="btn btn-primary">Add new book</a>
         <br/>
         <br/>
     <table border="1" cellpadding="10">
@@ -37,9 +38,9 @@
                 <td th:text="${book.category?.name}"></td>
                 <td th:text="${book.publisher?.name}"></td>
                 <td>
-                    <a th:href="@{/book_edit/{id}(id=${book.id})}">Edit</a>
+                    <a th:href="@{/book_edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
                     &nbsp;&nbsp;&nbsp;
-                    <a th:href="@{/book_delete/{id}(id=${book.id})}">Delete</a>
+                    <a th:href="@{/book_delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         </tbody>
