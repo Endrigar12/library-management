@@ -1,6 +1,7 @@
 package pl.library.library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,9 +33,10 @@ public class BookController {
     private PublisherService publisherService;
 
     @RequestMapping("/books")
-    public String listBook(Model model) {
-        List<Book> bookList = bookService.listAll();
+    public String listBook(Model model, @Param("keyword") String keyword) {
+        List<Book> bookList = bookService.listAll(keyword);  // wyszukiwanie
         model.addAttribute("books", bookList);
+        model.addAttribute("keyword", keyword);
 
 //        bookList.add(new Book(1L, "title1", 2021, "example description1"));
 //        bookList.add(new Book(2L, "title2", 2022, "example description2"));

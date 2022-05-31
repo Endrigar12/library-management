@@ -17,6 +17,13 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public List<Book> listAll(String keyword) {
+        if (keyword != null) {
+            return bookRepository.search(keyword);
+        }
+        return bookRepository.findAll();
+    }
+
     public void save(Book book) {
         bookRepository.save(book);
     }

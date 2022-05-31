@@ -15,6 +15,20 @@
         <a href="/book_new" class="btn btn-primary">Add new book</a>
         <br/>
         <br/>
+
+        <div align="center">
+            <form th:action="@{/books}">
+                <p>Search: </p>
+                <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" placeholder="Search.." />
+                &nbsp;
+                <input type="submit" value="Search" />
+                &nbsp;
+                <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+                &nbsp;
+            </form>
+        </div>
+
+        <br/>
     <table border="1" cellpadding="10">
         <thead>
             <tr>
@@ -45,15 +59,12 @@
             </tr>
         </tbody>
     </table>
-
         <div th:replace="fragments/footer :: footer"></div>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-                crossorigin="anonymous">
-        </script>
-        <script
-                src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js">
-        </script>
+        <script type="text/javascript">
+                 function clearSearch() {
+                 window.location = "[[@{/books}]]";
+                    }
+            </script>
     </body>
 </html>
