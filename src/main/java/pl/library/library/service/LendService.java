@@ -17,11 +17,16 @@ public class LendService {
         return lendRepository.findAll();
     }
 
+    public void save(Lend lend) {
+        lendRepository.save(lend);
+    }
+
     public Lend get(long id) {
-        return lendRepository.findById(id).get();
+        return lendRepository.findByBookId(id);
     }
 
     public void delete(long id) {
         lendRepository.deleteById(id);
     }
+
 }

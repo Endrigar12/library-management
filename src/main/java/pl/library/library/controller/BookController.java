@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import pl.library.library.model.Author;
-import pl.library.library.model.Book;
-import pl.library.library.model.Category;
-import pl.library.library.model.Publisher;
+import pl.library.library.model.*;
 import pl.library.library.service.*;
 
 import java.util.List;
@@ -32,11 +29,17 @@ public class BookController {
     @Autowired
     private PublisherService publisherService;
 
+    @Autowired
+    private LendService lendService;
+
     @RequestMapping("/books")
     public String listBook(Model model, @Param("keyword") String keyword) {
         List<Book> bookList = bookService.listAll(keyword);  // wyszukiwanie
         model.addAttribute("books", bookList);
         model.addAttribute("keyword", keyword);
+
+        List<Lend> listLend = lendService.listAll();
+        model.addAttribute("listLend", listLend);
 
 //        bookList.add(new Book(1L, "title1", 2021, "example description1"));
 //        bookList.add(new Book(2L, "title2", 2022, "example description2"));
@@ -89,4 +92,5 @@ public class BookController {
         bookService.delete(id);
         return "redirect:/books";
     }
+
 }

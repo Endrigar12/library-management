@@ -99,6 +99,10 @@ public class Book {
         this.lend = lend;
     }
 
+    public boolean isLend() {
+        return lend.stream().anyMatch(w->w.getReturn_date() == null);
+    }
+
     @Override
     public String toString() {
         return "Book{" +

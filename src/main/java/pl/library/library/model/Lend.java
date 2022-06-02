@@ -1,5 +1,7 @@
 package pl.library.library.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,8 +11,11 @@ public class Lend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lend_date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date suggested_return_date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date return_date;
 
     @ManyToOne

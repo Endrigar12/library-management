@@ -52,6 +52,13 @@
                 <td th:text="${book.category?.name}"></td>
                 <td th:text="${book.publisher?.name}"></td>
                 <td>
+                    <span th:if="${book.isLend()}">
+                        <a th:href="@{/lend_edit/{id}(id=${book.id})}" class="btn btn-secondary">Return</a>
+                    </span>
+                    <span th:unless="${book.isLend()}">
+                        <a th:href="@{/lend_new/{id}(id=${book.id})}" class="btn btn-secondary">Lend</a>
+                    </span>
+                    &nbsp;&nbsp;&nbsp;
                     <a th:href="@{/book_edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
                     &nbsp;&nbsp;&nbsp;
                     <a th:href="@{/book_delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>

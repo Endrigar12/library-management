@@ -6,4 +6,5 @@ import pl.library.library.model.Lend;
 
 @Repository
 public interface LendRepository extends JpaRepository<Lend, Long> {
+    Lend findByBookId(Long id);
 }
