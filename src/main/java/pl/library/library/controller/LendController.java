@@ -55,7 +55,6 @@ public class LendController {
         Book book = bookService.get(id);
         model.addAttribute("book", book);
 
-        lend.setId(book.getId());
         return "lend_new";
     }
 
@@ -64,6 +63,26 @@ public class LendController {
         lendService.save(lend);
 
         return "redirect:/books";
+    }
+
+    @RequestMapping("/lend_edit/{id}")
+    public ModelAndView editLend(@PathVariable(name = "id") int id) {
+        ModelAndView mav = new ModelAndView("lend_edit");
+
+        Lend lend = lendService.get(id);
+        mav.addObject("lend", lend);
+
+        List<Book> books = bookService.listAll();
+        mav.addObject("listBook", books);
+
+        Book book = bookService.get(id);
+        mav.addObject("book", book);
+
+        List<Reader> reader = readerService.listAll();
+        mav.addObject("listReader", reader);
+
+        lend.setReturn_date(new Date());
+        return mav;
     }
 
 
