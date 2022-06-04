@@ -1,6 +1,7 @@
 package pl.library.library.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -101,6 +102,10 @@ public class Book {
 
     public boolean isLend() {
         return lend.stream().anyMatch(w->w.getReturn_date() == null);
+    }
+
+    public boolean isAfterSuggestedReturnDate(){
+        return lend.stream().filter(w->w.getReturn_date() == null).anyMatch(w->w.getSuggested_return_date().before(new Date()));
     }
 
     @Override

@@ -43,7 +43,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="book : ${books}">
+            <tr th:each="book : ${books}" th:style="${book.isAfterSuggestedReturnDate()} == TRUE ? 'background: red' : 'background: white'">
                 <td th:text="${book.id}">Id</td>
                 <td th:text="${book.title}">Title</td>
                 <td th:text="${book.year_of_release}">Years of release</td>
