@@ -3,16 +3,16 @@
       xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8"/>
-        <title>Books List</title>
+        <title data-th-text="#{label.book.title}">Books List</title>
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
     </head>
     <body>
         <div th:replace="fragments/header :: header"></div>
-        <h1 align="center">Books list</h1>
+        <h1 align="center" data-th-text="#{label.book.title}">Books list</h1>
         <br/>
-        <a href="/book_new" class="btn btn-primary">Add new book</a>
+        <a href="/book_new" class="btn btn-primary" data-th-text="#{label.book.addNewBook}">Add new book</a>
         <br/>
         <br/>
 
@@ -32,14 +32,14 @@
     <table border="1" cellpadding="10">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Years of release</th>
-                <th>Description</th>
-                <th>Author</th>
-                <th>Category</th>
-                <th>Publisher</th>
-                <th>Action</th>
+                <th>Lp</th>
+                <th data-th-text="#{label.book.titleBook}">Title</th>
+                <th data-th-text="#{label.book.year_of_release}">Years of release</th>
+                <th data-th-text="#{label.book.description}">Description</th>
+                <th data-th-text="#{label.book.author}">Author</th>
+                <th data-th-text="#{label.book.category}">Category</th>
+                <th data-th-text="#{label.book.publisher}">Publisher</th>
+                <th data-th-text="#{label.action}">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -53,15 +53,15 @@
                 <td th:text="${book.publisher?.name}"></td>
                 <td>
                     <span th:if="${book.isLend()}">
-                        <a th:href="@{/lend_edit/{id}(id=${book.id})}" class="btn btn-secondary">Return</a>
+                        <a th:href="@{/lend_edit/{id}(id=${book.id})}" class="btn btn-secondary" data-th-text="#{label.book.return}">Return</a>
                     </span>
                     <span th:unless="${book.isLend()}">
-                        <a th:href="@{/lend_new/{id}(id=${book.id})}" class="btn btn-secondary">Lend</a>
+                        <a th:href="@{/lend_new/{id}(id=${book.id})}" class="btn btn-secondary" data-th-text="#{label.book.lend}">Lend</a>
                     </span>
                     &nbsp;&nbsp;&nbsp;
-                    <a th:href="@{/book_edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
+                    <a th:href="@{/book_edit/{id}(id=${book.id})}" class="btn btn-primary" data-th-text="#{label.edit}">Edit</a>
                     &nbsp;&nbsp;&nbsp;
-                    <a th:href="@{/book_delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
+                    <a th:href="@{/book_delete/{id}(id=${book.id})}" class="btn btn-danger" data-th-text="#{label.delete}">Delete</a>
                 </td>
             </tr>
         </tbody>

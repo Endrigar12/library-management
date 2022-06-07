@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>Categories List</title>
+    <title data-th-text="#{label.category.title}">Categories List</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
@@ -11,17 +11,17 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<h1 align="center">Categories list</h1>
+<h1 align="center" data-th-text="#{label.category.title}">Categories list</h1>
 <br/>
-<a href="/category_new" class="btn btn-primary">Add new category</a>
+<a href="/category_new" class="btn btn-primary" data-th-text="#{label.category.addNewCategory}">Add new category</a>
 <br/>
 <br/>
 <table border="1" cellpadding="10">
     <thead>
     <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Action</th>
+        <th>Lp</th>
+        <th data-th-text="#{label.category.name}">Name</th>
+        <th data-th-text="#{label.action}">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -29,9 +29,9 @@
         <td th:text="${category.id}">Id</td>
         <td th:text="${category.name}">Name</td>
         <td>
-            <a th:href="@{/category_edit/{id}(id=${category.id})}" class="btn btn-primary">Edit</a>
+            <a th:href="@{/category_edit/{id}(id=${category.id})}" class="btn btn-primary" data-th-text="#{label.edit}">Edit</a>
             &nbsp;&nbsp;&nbsp;
-            <a th:href="@{/category_delete/{id}(id=${category.id})}" class="btn btn-danger">Delete</a>
+            <a th:href="@{/category_delete/{id}(id=${category.id})}" class="btn btn-danger" data-th-text="#{label.delete}">Delete</a>
         </td>
     </tr>
     </tbody>

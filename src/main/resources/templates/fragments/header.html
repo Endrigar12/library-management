@@ -7,7 +7,7 @@
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark" th:fragment="header">
 
-    <a class="navbar-brand" th:href="@{/}">Library</a>
+    <a class="navbar-brand" th:href="@{/}" data-th-text="#{label.nav.titleApp}">Library</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
             aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,25 +17,25 @@
     <div class="collapse navbar-collapse" id="navbarsExample04">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" th:class="${activePage == 'index'} ? 'nav-item active' : 'nav-item'">
-          <a class="nav-link" th:href="@{/}">Home</a>
+          <a class="nav-link" th:href="@{/}" data-th-text="#{label.nav.home}">Home</a>
         </li>
         <li class="nav-item" th:class="${activePage == 'books'} ? 'nav-item active' : 'nav-item'">
-          <a class="nav-link" th:href="@{/books}">Books</a>
+          <a class="nav-link" th:href="@{/books}" data-th-text="#{label.nav.books}">Books</a>
         </li>
         <li class="nav-item" th:class="${activePage == 'authors'} ? 'nav-item active' : 'nav-item'">
-          <a class="nav-link" th:href="@{/authors}">Authors</a>
+          <a class="nav-link" th:href="@{/authors}" data-th-text="#{label.nav.authors}">Authors</a>
         </li>
         <li class="nav-item" th:class="${activePage == 'categories'} ? 'nav-item active' : 'nav-item'">
-          <a class="nav-link" th:href="@{/categories}">Categories</a>
+          <a class="nav-link" th:href="@{/categories}" data-th-text="#{label.nav.categories}">Categories</a>
         </li>
         <li class="nav-item" th:class="${activePage == 'publishers'} ? 'nav-item active' : 'nav-item'">
-          <a class="nav-link" th:href="@{/publishers}">Publishers</a>
+          <a class="nav-link" th:href="@{/publishers}" data-th-text="#{label.nav.publishers}">Publishers</a>
         </li>
         <li class="nav-item" th:class="${activePage == 'lends'} ? 'nav-item active' : 'nav-item'">
-          <a class="nav-link" th:href="@{/lends}">Lends</a>
+          <a class="nav-link" th:href="@{/lends}" data-th-text="#{label.nav.lends}">Lends</a>
         </li>
         <li class="nav-item" th:class="${activePage == 'readers'} ? 'nav-item active' : 'nav-item'">
-          <a class="nav-link" th:href="@{/readers}">Readers</a>
+          <a class="nav-link" th:href="@{/readers}" data-th-text="#{label.nav.readers}">Readers</a>
         </li>
       </ul>
     </div>

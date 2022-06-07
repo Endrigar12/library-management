@@ -3,25 +3,25 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>Publishers List</title>
+    <title data-th-text="#{label.publisher.title}">Publishers List</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
+    <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet"/>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<h1 align="center">Publishers list</h1>
+<h1 align="center" data-th-text="#{label.publisher.title}">Publishers list</h1>
 <br/>
-<a href="/publisher_new" class="btn btn-primary">Add new publisher</a>
+<a href="/publisher_new" class="btn btn-primary" data-th-text="#{label.publisher.addNewPublisher}">Add new publisher</a>
 <br/>
 <br/>
 <table border="1" cellpadding="10">
     <thead>
     <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Action</th>
+        <th>Lp</th>
+        <th data-th-text="#{label.publisher.name}">Name</th>
+        <th data-th-text="#{label.action}">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -29,9 +29,9 @@
         <td th:text="${publisher.id}">Id</td>
         <td th:text="${publisher.name}">Name</td>
         <td>
-            <a th:href="@{/publisher_edit/{id}(id=${publisher.id})}" class="btn btn-primary">Edit</a>
+            <a th:href="@{/publisher_edit/{id}(id=${publisher.id})}" class="btn btn-primary" data-th-text="#{label.edit}">Edit</a>
             &nbsp;&nbsp;&nbsp;
-            <a th:href="@{/publisher_delete/{id}(id=${publisher.id})}" class="btn btn-danger">Delete</a>
+            <a th:href="@{/publisher_delete/{id}(id=${publisher.id})}" class="btn btn-danger" data-th-text="#{label.delete}">Delete</a>
         </td>
     </tr>
     </tbody>
