@@ -40,7 +40,7 @@ VALUES (11, 'Memoir');
 
 ---- Authors
 INSERT INTO author (id, first_name, surname)
-VALUES (1, 'Stephen', "King");
+VALUES (1, 'Stephen', 'King');
 
 INSERT INTO author (id, first_name, surname)
 VALUES (2, 'Ta-Nehisi', 'Coates');

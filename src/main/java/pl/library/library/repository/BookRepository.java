@@ -14,7 +14,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             + " OR book.year_of_release LIKE %?1%"
             + " OR book.description LIKE %?1%"
             + " OR book.author.surname LIKE %?1%"
-            + " OR book.author.first_name LIKE %?1%"
+            + " OR book.author.firstName LIKE %?1%"
             + " OR book.category.name LIKE %?1%"
             + " OR book.publisher.name LIKE %?1%"
             + " OR book.id LIKE %?1%"

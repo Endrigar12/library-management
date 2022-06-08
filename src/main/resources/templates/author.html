@@ -20,16 +20,22 @@
     <table border="1" cellpadding="10">
         <thead>
         <tr>
-            <th>Lp</th>
-            <th data-th-text="#{label.author.first_name}">First name</th>
-            <th data-th-text="#{label.author.surname}">Surname</th>
+            <th>
+                <a th:href="@{'/authors/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">Lp</a>
+            </th>
+            <th>
+                <a data-th-text="#{label.author.firstName}" th:href="@{'/authors/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">First name</a>
+            </th>
+            <th>
+                <a data-th-text="#{label.author.surname}" th:href="@{'/authors/' + ${currentPage} + '?sortField=surname&sortDir=' + ${reverseSortDir}}">Surname</a>
+            </th>
             <th data-th-text="#{label.action}">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="author : ${authors}">
             <td th:text="${author.id}">Lp</td>
-            <td th:text="${author.first_name}">First name</td>
+            <td th:text="${author.firstName}">First name</td>
             <td th:text="${author.surname}">Surname</td>
             <td>
                 <a th:href="@{/author_edit/{id}(id=${author.id})}" class="btn btn-primary" data-th-text="#{label.edit}">Edit</a>
@@ -40,7 +46,33 @@
         </tbody>
     </table>
 
+        <div th:if = "${totalPages > 1}">
+            <div class = "row col-sm-10">
+<!--                <div class = "col-sm-2">-->
+<!--                    Total Rows: [[${totalItems}]]-->
+<!--                </div>-->
+                <br>
+                <div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/authors/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+                </div>
+                <div class = "col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/authors/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                    <span th:unless="${currentPage < totalPages}">Next</span>
+                </div>
+
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/authors/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                    <span th:unless="${currentPage < totalPages}">Last</span>
+                </div>
+            </div>
+        </div>
+
         <div th:replace="fragments/footer :: footer"></div>
+
+
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
                 integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="

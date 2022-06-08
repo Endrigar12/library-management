@@ -41,7 +41,7 @@
                         <option value=""> -- </option>
                         <option th:each="author : ${listAuthor}"
                                 th:value="${author.id}"
-                                th:utext="${author.first_name +' '+author.surname}"/>
+                                th:utext="${author.firstName +' '+author.surname}"/>
                     </select>
                 </td>
             </tr>

@@ -1,12 +1,10 @@
 package pl.library.library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.library.library.model.Author;
 import pl.library.library.service.AuthorService;
@@ -26,7 +24,8 @@ public class AuthorController {
 
 //        authorList.add(new Author(1L, "example author1", "example author11"));
 //        authorList.add(new Author(2L, "example author2", "example author22"));
-        return "author";
+//        return "author";
+        return findPaginated(1, "id", "asc", model);
     }
 
     @RequestMapping("/author_new")
@@ -58,4 +57,25 @@ public class AuthorController {
         return "redirect:/authors";
     }
 
+    @GetMapping("/authors/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model) {
+        int pageSize = 10;
+
+        Page<Author> page = authorService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Author> authorList = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("authors", authorList);
+        return "author";
+    }
 }
