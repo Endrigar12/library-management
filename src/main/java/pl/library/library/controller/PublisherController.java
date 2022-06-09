@@ -1,13 +1,12 @@
 package pl.library.library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.library.library.model.Lend;
 import pl.library.library.model.Publisher;
 import pl.library.library.service.PublisherService;
 
@@ -26,7 +25,7 @@ public class PublisherController {
 
 //        publisherList.add(new Publisher(1L, "example publisherName1"));
 //        publisherList.add(new Publisher(2L, "example publisherName2"));
-        return "publisher";
+        return findPaginated(1, "id", "asc", model);
     }
 
     @RequestMapping("/publisher_new")
@@ -56,5 +55,27 @@ public class PublisherController {
     public String deletePublisher(@PathVariable(name = "id") Long id) {
         publisherService.delete(id);
         return "redirect:/publishers";
+    }
+
+    @GetMapping("/publishers/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model) {
+        int pageSize = 10;
+
+        Page<Publisher> page = publisherService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Publisher> publisherList = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("publisher", publisherList);
+        return "publisher";
     }
 }

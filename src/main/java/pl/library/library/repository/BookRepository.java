@@ -11,7 +11,7 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("SELECT book FROM Book book WHERE book.title LIKE %?1%"
-            + " OR book.year_of_release LIKE %?1%"
+            + " OR book.yearOfRelease LIKE %?1%"
             + " OR book.description LIKE %?1%"
             + " OR book.author.surname LIKE %?1%"
             + " OR book.author.firstName LIKE %?1%"

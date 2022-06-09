@@ -1,12 +1,10 @@
 package pl.library.library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.library.library.model.*;
 import pl.library.library.service.BookService;
@@ -35,13 +33,13 @@ public class LendController {
         model.addAttribute("lends", lendList);
 
 //        lendList.add(new Lend(1L, "example categoryName1"));
-        return "lend";
+        return findPaginated(1, "id", "asc", model);
     }
 
     @RequestMapping("/lend_new/{id}")
     public String addNewLend(Model model, @PathVariable(name = "id") Long id) {
         Lend lend = new Lend();
-        lend.setLend_date(new Date());
+        lend.setLendDate(new Date());
 
         model.addAttribute("lend", lend);
         model.addAttribute("localDate", LocalDateTime.now());
@@ -81,7 +79,7 @@ public class LendController {
         List<Reader> reader = readerService.listAll();
         mav.addObject("listReader", reader);
 
-        lend.setReturn_date(new Date());
+        lend.setReturnDate(new Date());
         return mav;
     }
 
@@ -92,4 +90,25 @@ public class LendController {
         return "redirect:/lends";
     }
 
+    @GetMapping("/lends/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model) {
+        int pageSize = 10;
+
+        Page<Lend> page = lendService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Lend> lendList = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("lends", lendList);
+        return "lend";
+    }
 }

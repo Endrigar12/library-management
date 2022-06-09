@@ -11,12 +11,18 @@ public class Lend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "lend_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date lend_date;
+    private Date lendDate;
+
+    @Column(name = "suggested_return_date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date suggested_return_date;
+    private Date suggestedReturnDate;
+
+    @Column(name = "return_date", nullable = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date return_date;
+    private Date returnDate;
 
     @ManyToOne
     private Book book; // Jedna książka można wiele razy wypozyczyc
@@ -24,11 +30,11 @@ public class Lend {
     @ManyToOne
     private Reader reader; // Jeden czytelnik może wiele wypozyczyc
 
-    public Lend(Long id, Date lend_date, Date suggested_return_date, Date return_date) {
+    public Lend(Long id, Date lendDate, Date suggestedReturnDate, Date returnDate) {
         this.id = id;
-        this.lend_date = lend_date;
-        this.suggested_return_date = suggested_return_date;
-        this.return_date = return_date;
+        this.lendDate = lendDate;
+        this.suggestedReturnDate = suggestedReturnDate;
+        this.returnDate = returnDate;
     }
 
     public Lend() {
@@ -42,28 +48,28 @@ public class Lend {
         this.id = id;
     }
 
-    public Date getLend_date() {
-        return lend_date;
+    public Date getLendDate() {
+        return lendDate;
     }
 
-    public void setLend_date(Date lend_date) {
-        this.lend_date = lend_date;
+    public void setLendDate(Date lendDate) {
+        this.lendDate = lendDate;
     }
 
-    public Date getSuggested_return_date() {
-        return suggested_return_date;
+    public Date getSuggestedReturnDate() {
+        return suggestedReturnDate;
     }
 
-    public void setSuggested_return_date(Date suggested_return_date) {
-        this.suggested_return_date = suggested_return_date;
+    public void setSuggestedReturnDate(Date suggestedReturnDate) {
+        this.suggestedReturnDate = suggestedReturnDate;
     }
 
-    public Date getReturn_date() {
-        return return_date;
+    public Date getReturnDate() {
+        return returnDate;
     }
 
-    public void setReturn_date(Date return_date) {
-        this.return_date = return_date;
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 
     public Book getBook() {
@@ -86,9 +92,9 @@ public class Lend {
     public String toString() {
         return "Lend{" +
                 "id=" + id +
-                ", lend_date=" + lend_date +
-                ", suggested_return_date=" + suggested_return_date +
-                ", return_date=" + return_date +
+                ", lendDate=" + lendDate +
+                ", suggestedReturnDate=" + suggestedReturnDate +
+                ", returnDate=" + returnDate +
                 '}';
     }
 

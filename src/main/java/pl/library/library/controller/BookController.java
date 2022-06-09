@@ -1,13 +1,11 @@
 package pl.library.library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.library.library.model.*;
 import pl.library.library.service.*;
@@ -43,7 +41,7 @@ public class BookController {
 
 //        bookList.add(new Book(1L, "title1", 2021, "example description1"));
 //        bookList.add(new Book(2L, "title2", 2022, "example description2"));
-        return "book";
+        return findPaginated(1, "id", "asc", model);
     }
 
     @RequestMapping("/book_new")
@@ -91,6 +89,28 @@ public class BookController {
     public String deleteBook(@PathVariable(name = "id") Long id) {
         bookService.delete(id);
         return "redirect:/books";
+    }
+
+    @GetMapping("/books/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model) {
+        int pageSize = 10;
+
+        Page<Book> page = bookService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Book> bookList = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("books", bookList);
+        return "book";
     }
 
 }

@@ -1,7 +1,12 @@
 package pl.library.library.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import pl.library.library.model.Lend;
 import pl.library.library.model.Reader;
 import pl.library.library.repository.ReaderRepository;
 
@@ -27,5 +32,13 @@ public class ReaderService {
 
     public void delete(long id) {
         readerRepository.deleteById(id);
+    }
+
+    public Page<Reader> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return this.readerRepository.findAll(pageable);
     }
 }

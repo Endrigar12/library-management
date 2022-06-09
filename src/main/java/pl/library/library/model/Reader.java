@@ -9,26 +9,33 @@ public class Reader {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String first_name;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+    @Column(name = "surname", nullable = false)
     private String surname;
-    private String phone_number;
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
+    @Column(name = "email", nullable = false)
     private String email;
-    private String address; //ulica lub osiedle
-    private String province; // wojewodztwo
-    private String postal_code; //kod pocztowy
+    @Column(name = "address", nullable = false)
+    private String address;
+    @Column(name = "province", nullable = false)
+    private String province;
+    @Column(name = "postal_code", nullable = false)
+    private String postalCode;
 
     @OneToMany(mappedBy = "reader")
     private List<Lend> lend;
 
-    public Reader(Long id, String first_name, String surname, String phone_number, String email, String address, String province, String postal_code) {
+    public Reader(Long id, String firstName, String surname, String phoneNumber, String email, String address, String province, String postalCode) {
         this.id = id;
-        this.first_name = first_name;
+        this.firstName = firstName;
         this.surname = surname;
-        this.phone_number = phone_number;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
         this.province = province;
-        this.postal_code = postal_code;
+        this.postalCode = postalCode;
     }
 
     public Reader() {
@@ -43,12 +50,12 @@ public class Reader {
         this.id = id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getSurname() {
@@ -59,12 +66,12 @@ public class Reader {
         this.surname = surname;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -91,25 +98,25 @@ public class Reader {
         this.province = province;
     }
 
-    public String getPostal_code() {
-        return postal_code;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setPostal_code(String postal_code) {
-        this.postal_code = postal_code;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     @Override
     public String toString() {
         return "Reader{" +
                 "id=" + id +
-                ", first_name='" + first_name + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", surname='" + surname + '\'' +
-                ", phone_number='" + phone_number + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", province='" + province + '\'' +
-                ", postal_code='" + postal_code + '\'' +
+                ", postalCode='" + postalCode + '\'' +
                 '}';
     }
 

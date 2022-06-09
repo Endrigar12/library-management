@@ -19,27 +19,43 @@
 <table border="1" cellpadding="10">
     <thead>
     <tr>
-        <th>Lp</th>
-        <th data-th-text="#{label.reader.first_name}">First name</th>
-        <th data-th-text="#{label.reader.surname}">Surname</th>
-        <th data-th-text="#{label.reader.phone_number}">Phone number</th>
-        <th>Email</th>
-        <th data-th-text="#{label.reader.address}">Address</th>
-        <th data-th-text="#{label.reader.province}">Province</th>
-        <th data-th-text="#{label.reader.postal_code}">Postal code</th>
+        <th>
+            <a th:href="@{'/readers/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">Lp</a>
+        </th>
+        <th>
+            <a data-th-text="#{label.reader.firstName}" th:href="@{'/readers/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">First name</a>
+        </th>
+        <th>
+            <a data-th-text="#{label.reader.surname}" th:href="@{'/readers/' + ${currentPage} + '?sortField=surname&sortDir=' + ${reverseSortDir}}">Surname</a>
+        </th>
+        <th>
+            <a data-th-text="#{label.reader.phoneNumber}" th:href="@{'/readers/' + ${currentPage} + '?sortField=phoneNumber&sortDir=' + ${reverseSortDir}}">Phone number</a>
+        </th>
+        <th>
+            <a th:href="@{'/readers/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">Email</a>
+        </th>
+        <th>
+            <a data-th-text="#{label.reader.address}" th:href="@{'/readers/' + ${currentPage} + '?sortField=address&sortDir=' + ${reverseSortDir}}">Address</a>
+        </th>
+        <th>
+            <a data-th-text="#{label.reader.province}" th:href="@{'/readers/' + ${currentPage} + '?sortField=province&sortDir=' + ${reverseSortDir}}">Province</a>
+        </th>
+        <th>
+            <a data-th-text="#{label.reader.postalCode}" th:href="@{'/readers/' + ${currentPage} + '?sortField=postalCode&sortDir=' + ${reverseSortDir}}">Postal code</a>
+        </th>
         <th data-th-text="#{label.action}">Action</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="reader : ${readers}">
         <td th:text="${reader.id}">Id</td>
-        <td th:text="${reader.first_name}">First name</td>
+        <td th:text="${reader.firstName}">First name</td>
         <td th:text="${reader.surname}">Surname</td>
-        <td th:text="${reader.phone_number}">Phone number</td>
+        <td th:text="${reader.phoneNumber}">Phone number</td>
         <td th:text="${reader.email}">Email</td>
         <td th:text="${reader.address}">Address</td>
         <td th:text="${reader.province}">Province</td>
-        <td th:text="${reader.postal_code}">Postal code</td>
+        <td th:text="${reader.postalCode}">Postal code</td>
         <td>
             <a th:href="@{/reader_edit/{id}(id=${reader.id})}" class="btn btn-primary" data-th-text="#{label.edit}">Edit</a>
             &nbsp;&nbsp;&nbsp;
@@ -48,6 +64,31 @@
     </tr>
     </tbody>
 </table>
+
+<div th:if = "${totalPages > 1}">
+    <div class = "row col-sm-10">
+        <!--                <div class = "col-sm-2">-->
+        <!--                    Total Rows: [[${totalItems}]]-->
+        <!--                </div>-->
+        <br>
+        <div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/readers/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+        </div>
+        <div class = "col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/readers/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+            <span th:unless="${currentPage < totalPages}">Next</span>
+        </div>
+
+        <div class="col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/readers/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+            <span th:unless="${currentPage < totalPages}">Last</span>
+        </div>
+    </div>
+</div>
+
 
 <div th:replace="fragments/footer :: footer"></div>
 

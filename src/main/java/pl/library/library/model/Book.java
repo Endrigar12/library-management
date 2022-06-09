@@ -10,8 +10,11 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "title", nullable = false)
     private String title;
-    private int year_of_release;
+    @Column(name = "year_of_release", nullable = false)
+    private int yearOfRelease;
+    @Column(name = "description", nullable = false)
     private String description;
 
     @ManyToOne
@@ -26,10 +29,10 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private List<Lend> lend;
 
-    public Book(Long id, String title, int year_of_release, String description) {
+    public Book(Long id, String title, int yearOfRelease, String description) {
         this.id = id;
         this.title = title;
-        this.year_of_release = year_of_release;
+        this.yearOfRelease = yearOfRelease;
         this.description = description;
     }
 
@@ -52,12 +55,12 @@ public class Book {
         this.title = title;
     }
 
-    public int getYear_of_release() {
-        return year_of_release;
+    public int getYearOfRelease() {
+        return yearOfRelease;
     }
 
-    public void setYear_of_release(int year_of_release) {
-        this.year_of_release = year_of_release;
+    public void setYearOfRelease(int yearOfRelease) {
+        this.yearOfRelease = yearOfRelease;
     }
 
     public String getDescription() {
@@ -101,11 +104,11 @@ public class Book {
     }
 
     public boolean isLend() {
-        return lend.stream().anyMatch(w->w.getReturn_date() == null);
+        return lend.stream().anyMatch(w->w.getReturnDate() == null);
     }
 
     public boolean isAfterSuggestedReturnDate(){
-        return lend.stream().filter(w->w.getReturn_date() == null).anyMatch(w->w.getSuggested_return_date().before(new Date()));
+        return lend.stream().filter(w->w.getReturnDate() == null).anyMatch(w->w.getSuggestedReturnDate().before(new Date()));
     }
 
     @Override
@@ -113,7 +116,7 @@ public class Book {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", year_of_release=" + year_of_release +
+                ", yearOfRelease=" + yearOfRelease +
                 ", description='" + description + '\'' +
                 '}';
     }

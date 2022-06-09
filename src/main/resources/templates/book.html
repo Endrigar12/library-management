@@ -32,13 +32,27 @@
     <table border="1" cellpadding="10">
         <thead>
             <tr>
-                <th>Lp</th>
-                <th data-th-text="#{label.book.titleBook}">Title</th>
-                <th data-th-text="#{label.book.year_of_release}">Years of release</th>
-                <th data-th-text="#{label.book.description}">Description</th>
-                <th data-th-text="#{label.book.author}">Author</th>
-                <th data-th-text="#{label.book.category}">Category</th>
-                <th data-th-text="#{label.book.publisher}">Publisher</th>
+                <th>
+                    <a th:href="@{'/books/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">Lp</a>
+                </th>
+                <th>
+                    <a data-th-text="#{label.book.title}" th:href="@{'/books/' + ${currentPage} + '?sortField=title&sortDir=' + ${reverseSortDir}}">Title</a>
+                </th>
+                <th>
+                    <a data-th-text="#{label.book.yearOfRelease}" th:href="@{'/books/' + ${currentPage} + '?sortField=yearOfRelease&sortDir=' + ${reverseSortDir}}">Years of release</a>
+                </th>
+                <th>
+                    <a data-th-text="#{label.book.description}" th:href="@{'/books/' + ${currentPage} + '?sortField=description&sortDir=' + ${reverseSortDir}}">Description</a>
+                </th>
+                <th>
+                    <a data-th-text="#{label.book.author}" th:href="@{'/books/' + ${currentPage} + '?sortField=author.surname&sortDir=' + ${reverseSortDir}}">Author</a>
+                </th>
+                <th>
+                    <a data-th-text="#{label.book.category}" th:href="@{'/books/' + ${currentPage} + '?sortField=category.name&sortDir=' + ${reverseSortDir}}">Category</a>
+                </th>
+                <th>
+                    <a data-th-text="#{label.book.publisher}" th:href="@{'/books/' + ${currentPage} + '?sortField=publisher.name&sortDir=' + ${reverseSortDir}}">Publisher</a>
+                </th>
                 <th data-th-text="#{label.action}">Action</th>
             </tr>
         </thead>
@@ -46,7 +60,7 @@
             <tr th:each="book : ${books}" th:style="${book.isAfterSuggestedReturnDate()} == TRUE ? 'background: red' : 'background: white'">
                 <td th:text="${book.id}">Id</td>
                 <td th:text="${book.title}">Title</td>
-                <td th:text="${book.year_of_release}">Years of release</td>
+                <td th:text="${book.yearOfRelease}">Years of release</td>
                 <td th:text="${book.description}">Description</td>
                 <td th:text="${book.author?.firstName+' '+book.author.surname}"></td>  <!--  ? pominiecie wartosci null, program sie nie wysypuje-->
                 <td th:text="${book.category?.name}"></td>
@@ -66,6 +80,32 @@
             </tr>
         </tbody>
     </table>
+
+        <div th:if = "${totalPages > 1}">
+            <div class = "row col-sm-10">
+                <!--                <div class = "col-sm-2">-->
+                <!--                    Total Rows: [[${totalItems}]]-->
+                <!--                </div>-->
+                <br>
+                <div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/books/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+                </div>
+                <div class = "col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/books/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                    <span th:unless="${currentPage < totalPages}">Next</span>
+                </div>
+
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/books/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                    <span th:unless="${currentPage < totalPages}">Last</span>
+                </div>
+            </div>
+        </div>
+
+
         <div th:replace="fragments/footer :: footer"></div>
 
         <script type="text/javascript">

@@ -16,29 +16,66 @@
 <table border="1" cellpadding="10">
     <thead>
     <tr>
-        <th>Lp</th>
-        <th data-th-text="#{label.lend.lend_date}">Lend date</th>
-        <th data-th-text="#{label.lend.suggested_return_date}">Suggested return date</th>
-        <th data-th-text="#{label.lend.return_date}">Return date</th>
-        <th data-th-text="#{label.lend.book}">Book</th>
-        <th data-th-text="#{label.lend.reader}">Reader</th>
+        <th>
+            <a th:href="@{'/lends/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">Lp</a>
+        </th>
+        <th>
+            <a data-th-text="#{label.lend.lendDate}" th:href="@{'/lends/' + ${currentPage} + '?sortField=lendDate&sortDir=' + ${reverseSortDir}}">Lend date</a>
+        </th>
+        <th>
+            <a data-th-text="#{label.lend.suggestedReturnDate}" th:href="@{'/lends/' + ${currentPage} + '?sortField=suggestedReturnDate&sortDir=' + ${reverseSortDir}}">Suggested return date</a>
+        </th>
+        <th>
+            <a data-th-text="#{label.lend.returnDate}" th:href="@{'/lends/' + ${currentPage} + '?sortField=returnDate&sortDir=' + ${reverseSortDir}}">Return date</a>
+        </th>
+        <th>
+            <a data-th-text="#{label.lend.book}" th:href="@{'/lends/' + ${currentPage} + '?sortField=book.title&sortDir=' + ${reverseSortDir}}">Book</a>
+        </th>
+        <th>
+            <a data-th-text="#{label.lend.reader}" th:href="@{'/lends/' + ${currentPage} + '?sortField=reader.surname&sortDir=' + ${reverseSortDir}}">Reader</a>
+        </th>
         <th data-th-text="#{label.action}">Action</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="lend : ${lends}">
         <td th:text="${lend.id}">Id</td>
-        <td th:text="${#dates.format(lend.lend_date, 'dd-MM-yyyy')}"></td>
-        <td th:text="${#dates.format(lend.suggested_return_date, 'dd-MM-yyyy')}"></td>
-        <td th:text="${#dates.format(lend.return_date, 'dd-MM-yyyy')}"></td>
+        <td th:text="${#dates.format(lend.lendDate, 'dd-MM-yyyy')}"></td>
+        <td th:text="${#dates.format(lend.suggestedReturnDate, 'dd-MM-yyyy')}"></td>
+        <td th:text="${#dates.format(lend.returnDate, 'dd-MM-yyyy')}"></td>
         <td th:text="${lend.book?.title}"></td>
-        <td th:text="${lend.reader?.first_name+' '+lend.reader?.surname}"></td>
+        <td th:text="${lend.reader?.firstName+' '+lend.reader?.surname}"></td>
         <td>
             <a th:href="@{/lend_delete/{id}(id=${lend.id})}" class="btn btn-danger" data-th-text="#{label.delete}">Delete</a>
         </td>
     </tr>
     </tbody>
 </table>
+
+<div th:if = "${totalPages > 1}">
+    <div class = "row col-sm-10">
+        <!--                <div class = "col-sm-2">-->
+        <!--                    Total Rows: [[${totalItems}]]-->
+        <!--                </div>-->
+        <br>
+        <div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/lends/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+        </div>
+        <div class = "col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/lends/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+            <span th:unless="${currentPage < totalPages}">Next</span>
+        </div>
+
+        <div class="col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/lends/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+            <span th:unless="${currentPage < totalPages}">Last</span>
+        </div>
+    </div>
+</div>
+
 
 <div th:replace="fragments/footer :: footer"></div>
 
