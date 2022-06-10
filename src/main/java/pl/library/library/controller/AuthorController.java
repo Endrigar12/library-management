@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.library.library.model.Author;
 import pl.library.library.service.AuthorService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -37,9 +39,11 @@ public class AuthorController {
     }
 
     @RequestMapping(value = "/save_author", method = RequestMethod.POST)
-    public String saveAuthor(@ModelAttribute("author") Author author) {
+    public String saveAuthor(@Valid @ModelAttribute("author") Author author, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "author_new";
+        }
         authorService.save(author);
-
         return "redirect:/authors";
     }
 
@@ -49,6 +53,16 @@ public class AuthorController {
         Author author = authorService.get(id);
         mav.addObject("author", author);
         return mav;
+    }
+
+    @RequestMapping("/save_edit_author/{id}")
+    public String editAuthorSave(@PathVariable("id") long id, @Valid  Author author, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            author.setId(id);
+            return "author_edit";
+        }
+        authorService.save(author);
+        return "redirect:/authors";
     }
 
     @RequestMapping("/author_delete/{id}")

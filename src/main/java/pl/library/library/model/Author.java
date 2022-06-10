@@ -1,6 +1,8 @@
 package pl.library.library.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -9,9 +11,15 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "first_name", nullable = false)
+    @NotBlank
+    @Size(min=2, max=30)
     private String firstName;
+
     @Column(name = "surname", nullable = false)
+    @NotBlank
+    @Size(min=2, max=40)
     private String surname;
 
 

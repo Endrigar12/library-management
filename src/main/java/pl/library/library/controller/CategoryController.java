@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.library.library.model.Author;
 import pl.library.library.model.Category;
 import pl.library.library.service.CategoryService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -37,9 +40,12 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/save_category", method = RequestMethod.POST)
-    public String saveCategory(@ModelAttribute("category") Category category) {
-        categoryService.save(category);
+    public String saveCategory(@Valid  @ModelAttribute("category") Category category, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "category_new";
+        }
 
+        categoryService.save(category);
         return "redirect:/categories";
     }
 
@@ -49,6 +55,16 @@ public class CategoryController {
         Category category = categoryService.get(id);
         mav.addObject("category", category);
         return mav;
+    }
+
+    @RequestMapping("/save_edit_category/{id}")
+    public String editCategorySave(@PathVariable("id") long id, @Valid Category category, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            category.setId(id);
+            return "category_edit";
+        }
+        categoryService.save(category);
+        return "redirect:/categories";
     }
 
     @RequestMapping("/category_delete/{id}")
