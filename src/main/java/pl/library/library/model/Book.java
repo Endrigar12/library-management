@@ -1,6 +1,8 @@
 package pl.library.library.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -10,11 +12,17 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "title", nullable = false)
+    @NotBlank
+    @Size(min=2, max=100)
     private String title;
+
     @Column(name = "year_of_release", nullable = false)
     private int yearOfRelease;
-    @Column(name = "description", nullable = false)
+
+    @Column(name = "description", nullable = true)
+    @Size(max=300)
     private String description;
 
     @ManyToOne

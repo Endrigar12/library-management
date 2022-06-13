@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import pl.library.library.model.Author;
 import pl.library.library.model.Category;
 import pl.library.library.model.Lend;
 import pl.library.library.model.Publisher;

@@ -5,11 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.library.library.model.*;
 import pl.library.library.service.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -62,9 +64,22 @@ public class BookController {
     }
 
     @RequestMapping(value = "/save_book", method = RequestMethod.POST)
-    public String saveBook(@ModelAttribute("book") Book book) {
-        bookService.save(book);
+    public String saveBook(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult, Model model) {
+        model.addAttribute("book", book);
 
+        List<Author> authors = authorService.listAll(); // wyświetlenie listy autorów
+        model.addAttribute("listAuthor", authors);
+
+        List<Category> category = categoryService.listAll();
+        model.addAttribute("listCategory", category);
+
+        List<Publisher> publisher = publisherService.listAll();
+        model.addAttribute("listPublisher", publisher);
+        if (bindingResult.hasErrors()) {
+            return "book_new";
+        }
+
+        bookService.save(book);
         return "redirect:/books";
     }
 
@@ -83,6 +98,27 @@ public class BookController {
         List<Publisher> publisher = publisherService.listAll();
         mav.addObject("listPublisher", publisher);
         return mav;
+    }
+
+    @RequestMapping("/save_edit_book/{id}")
+    public String editBookSave(@PathVariable("id") long id, @Valid Book book, BindingResult bindingResult, Model model) {
+        model.addAttribute("book", book);
+
+        List<Author> authors = authorService.listAll(); // wyświetlenie listy autorów
+        model.addAttribute("listAuthor", authors);
+
+        List<Category> category = categoryService.listAll();
+        model.addAttribute("listCategory", category);
+
+        List<Publisher> publisher = publisherService.listAll();
+        model.addAttribute("listPublisher", publisher);
+
+        if (bindingResult.hasErrors()) {
+            book.setId(id);
+            return "book_edit";
+        }
+        bookService.save(book);
+        return "redirect:/books";
     }
 
     @RequestMapping("/book_delete/{id}")

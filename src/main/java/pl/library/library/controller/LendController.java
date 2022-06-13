@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.library.library.model.*;
@@ -11,6 +12,7 @@ import pl.library.library.service.BookService;
 import pl.library.library.service.LendService;
 import pl.library.library.service.ReaderService;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -57,9 +59,11 @@ public class LendController {
     }
 
     @RequestMapping(value = "/save_lend", method = RequestMethod.POST)
-    public String saveLend(@ModelAttribute("lend") Lend lend) {
+    public String saveLend(@Valid @ModelAttribute("lend") Lend lend, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "lend_new";
+        }
         lendService.save(lend);
-
         return "redirect:/books";
     }
 
@@ -83,6 +87,15 @@ public class LendController {
         return mav;
     }
 
+    @RequestMapping("/save_edit_lend/{id}")
+    public String saveEditLend(@PathVariable("id") long id, @Valid  Lend lend, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            lend.setId(id);
+            return "lend_edit";
+        }
+        lendService.save(lend);
+        return "redirect:/lends";
+    }
 
     @RequestMapping("/lend_delete/{id}")
     public String deleteLend(@PathVariable(name = "id") int id) {

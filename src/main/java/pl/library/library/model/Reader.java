@@ -1,6 +1,10 @@
 package pl.library.library.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -9,20 +13,42 @@ public class Reader {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "first_name", nullable = false)
+    @NotBlank
+    @Size(min=2, max=30)
     private String firstName;
+
     @Column(name = "surname", nullable = false)
+    @NotBlank
+    @Size(min=2, max=40)
     private String surname;
+
     @Column(name = "phone_number", nullable = false)
+    @NotBlank
+    @Pattern(regexp="(^$|[0-9]{9})")
     private String phoneNumber;
-    @Column(name = "email", nullable = false)
+
+    @Column(name = "email", nullable = true)
+    @NotBlank
+    @Email
     private String email;
+
     @Column(name = "address", nullable = false)
+    @NotBlank
+    @Size(min=2, max=50)
     private String address;
+
     @Column(name = "province", nullable = false)
+    @NotBlank
+    @Size(min=2, max=50)
     private String province;
+
     @Column(name = "postal_code", nullable = false)
+    @NotBlank
+    @Pattern(regexp="(^$|[0-9]{2}-[0-9]{3})")
     private String postalCode;
+
 
     @OneToMany(mappedBy = "reader")
     private List<Lend> lend;

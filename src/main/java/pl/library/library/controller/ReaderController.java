@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.library.library.model.Reader;
 import pl.library.library.service.ReaderService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -22,8 +24,6 @@ public class ReaderController {
         List<Reader> readerList = readerService.listAll();
         model.addAttribute("readers", readerList);
 
-//        readerList.add(new Reader(1L, "example firstname1", "example surrname1", "123456789", "example@example.com", "adress1", "province1", "postal1"));
-//        readerList.add(new Reader(1L, "example firstname2", "example surrname2", "987654321", "example2@example.com", "adress2", "province2", "postal2"));
         return findPaginated(1, "id", "asc", model);
     }
 
@@ -36,9 +36,11 @@ public class ReaderController {
     }
 
     @RequestMapping(value = "/save_reader", method = RequestMethod.POST)
-    public String saveReader(@ModelAttribute("reader") Reader reader) {
+    public String saveReader(@Valid @ModelAttribute("reader") Reader reader, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "reader_new";
+        }
         readerService.save(reader);
-
         return "redirect:/readers";
     }
 
@@ -48,6 +50,16 @@ public class ReaderController {
         Reader reader = readerService.get(id);
         mav.addObject("reader", reader);
         return mav;
+    }
+
+    @RequestMapping("/save_edit_reader/{id}")
+    public String saveEditReader(@PathVariable("id") long id, @Valid Reader reader, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            reader.setId(id);
+            return "reader_edit";
+        }
+        readerService.save(reader);
+        return "redirect:/readers";
     }
 
     @RequestMapping("/reader_delete/{id}")

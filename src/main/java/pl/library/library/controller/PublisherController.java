@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.library.library.model.Author;
 import pl.library.library.model.Lend;
 import pl.library.library.model.Publisher;
 import pl.library.library.service.PublisherService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -23,8 +26,6 @@ public class PublisherController {
         List<Publisher> publisherList = publisherService.listAll();
         model.addAttribute("publishers", publisherList);
 
-//        publisherList.add(new Publisher(1L, "example publisherName1"));
-//        publisherList.add(new Publisher(2L, "example publisherName2"));
         return findPaginated(1, "id", "asc", model);
     }
 
@@ -37,9 +38,11 @@ public class PublisherController {
     }
 
     @RequestMapping(value = "/save_publisher", method = RequestMethod.POST)
-    public String savePublisher(@ModelAttribute("publisher") Publisher publisher) {
+    public String savePublisher(@Valid @ModelAttribute("publisher") Publisher publisher, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "publisher_new";
+        }
         publisherService.save(publisher);
-
         return "redirect:/publishers";
     }
 
@@ -49,6 +52,16 @@ public class PublisherController {
         Publisher publisher = publisherService.get(id);
         mav.addObject("publisher", publisher);
         return mav;
+    }
+
+    @RequestMapping("/save_edit_publisher/{id}")
+    public String editPublisherSave(@PathVariable("id") long id, @Valid  Publisher publisher, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            publisher.setId(id);
+            return "publisher_edit";
+        }
+        publisherService.save(publisher);
+        return "redirect:/publishers";
     }
 
     @RequestMapping("/publisher_delete/{id}")
@@ -75,7 +88,7 @@ public class PublisherController {
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
-        model.addAttribute("publisher", publisherList);
+        model.addAttribute("publishers", publisherList);
         return "publisher";
     }
 }

@@ -1,71 +1,64 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8"/>
-  <title data-th-text="#{label.book.addNewBook}">Add new book</title>
-  <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
-</head>
-<body>
-<div align="center">
-  <h1 data-th-text="#{label.book.addNewBook}">Add new book</h1>
-  <br />
-  <form action="#" th:action="@{/save_book}" th:object="${book}"
-        method="post">
-
-    <table border="0" cellpadding="10">
-      <tr>
-        <td data-th-text="#{label.book.titleBook}">Title: </td>
-        <td><input type="text" th:field="*{title}" /></td>
-      </tr>
-      <tr>
-        <td data-th-text="#{label.book.yearOfRelease}">Year of release: </td>
-        <td><input type="text" th:field="*{yearOfRelease}" /></td>
-      </tr>
-      <tr>
-        <td data-th-text="#{label.book.description}">Description: </td>
-        <td><input type="text" th:field="*{description}" /></td>
-      </tr>
-      <tr>
-        <td data-th-text="#{label.book.author}">Author:</td>
-        <td>
-          <select th:field="*{author}">
-            <option value=""> -- </option>
-            <option th:each="author : ${listAuthor}"
-                    th:value="${author.id}"
-                    th:utext="${author.firstName +' '+author.surname}"/>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td data-th-text="#{label.book.category}">Category:</td>
-        <td>
-          <select th:field="*{category}">
-            <option value=""> -- </option>
-            <option th:each="category : ${listCategory}"
-                    th:value="${category.id}"
-                    th:utext="${category.name}"/>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td data-th-text="#{label.book.publisher}">Publisher:</td>
-        <td>
-          <select th:field="*{publisher}">
-            <option value=""> -- </option>
-            <option th:each="publisher : ${listPublisher}"
-                    th:value="${publisher.id}"
-                    th:utext="${publisher.name}"/>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2"><button type="submit" data-th-text="#{label.save}">Save</button> </td>
-      </tr>
-    </table>
-  </form>
-</div>
-</body>
+    <head>
+        <meta charset="utf-8"/>
+        <title data-th-text="#{label.book.addNewBook}">Add new book</title>
+        <link rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link th:href="@{/styles/cssandjs/main.css}" rel="stylesheet" />
+    </head>
+    <body>
+      <div align="center">
+        <h1 data-th-text="#{label.book.addNewBook}">Add new book</h1>
+        <br />
+          <form action="#" th:action="@{/save_book}" th:object="${book}" method="post">
+            <div class="form-group">
+              <label data-th-text="#{label.book.titleBook}" for="title"></label>
+              <input type="text" class="form-control" id="title" th:field="*{title}" />
+              <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Full name error</span>
+            </div>
+            <div class="form-group">
+              <label data-th-text="#{label.book.yearOfRelease}" for="yearOfRelease"></label>
+              <input type="numbers" maxlength="4" class="form-control" id="yearOfRelease" th:field="*{yearOfRelease}" />
+              <span th:if="${#fields.hasErrors('yearOfRelease')}" th:errors="*{yearOfRelease}">Full name error</span>
+            </div>
+            <div class="form-group">
+              <label data-th-text="#{label.book.description}" for="description"></label>
+              <input type="text" class="form-control" id="description" th:field="*{description}" />
+              <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Full name error</span>
+            </div>
+            <div class="form-group">
+              <label data-th-text="#{label.book.author}" for="author">Author: </label>
+              <select class="form-control" id="author" th:field="*{author}">
+                <option value=""> -- </option>
+                <option th:each="author : ${listAuthor}"
+                        th:value="${author.id}"
+                        th:utext="${author.firstName +' '+author.surname}"/>
+              </select>
+            </div>
+            <div class="form-group">
+              <label data-th-text="#{label.book.category}" for="category">Category: </label>
+              <select class="form-control" id="category" th:field="*{category}">
+                <option value=""> -- </option>
+                <option th:each="category : ${listCategory}"
+                        th:value="${category.id}"
+                        th:utext="${category.name}"/>
+              </select>
+            </div>
+            <div class="form-group">
+              <label data-th-text="#{label.book.publisher}" for="publisher">Publisher: </label>
+              <select class="form-control" id="publisher" th:field="*{publisher}">
+                <option value=""> -- </option>
+                <option th:each="publisher : ${listPublisher}"
+                        th:value="${publisher.id}"
+                        th:utext="${publisher.name}"/>
+              </select>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" data-th-text="#{label.save}">Save</button>
+            </div>
+          </form>
+      </div>
+    </body>
 </html>
