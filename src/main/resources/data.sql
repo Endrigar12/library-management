@@ -156,7 +156,7 @@ VALUES (
 INSERT INTO book (id, title, year_of_release, description, category_id, author_id, publisher_id)
 VALUES (
 5,
-'Catch and Kill: Lies, Spies, and a Conspiracy to Protect Predators ',
+'Catch and Kill: Lies, Spies, and a Conspiracy to Protect Predators',
 '2019',
 'In this instant New York Times bestselling account of violence and espionage, Pulitzer Prize-winning investigative reporter Ronan Farrow exposes serial abusers',
 5,
