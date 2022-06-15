@@ -6,8 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import pl.library.library.handler.BookNotFoundException;
 import pl.library.library.model.Book;
-import pl.library.library.model.Category;
 import pl.library.library.repository.BookRepository;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class BookService {
     }
 
     public Book get(long id) {
-        return bookRepository.findById(id).get();
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
     }
 
     public void delete(long id) {

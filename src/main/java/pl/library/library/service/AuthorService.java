@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import pl.library.library.handler.AuthorNotFoundException;
 import pl.library.library.model.Author;
 import pl.library.library.repository.AuthorRepository;
 
@@ -26,7 +27,7 @@ public class AuthorService {
     }
 
     public Author get(long id) {
-        return authorRepository.findById(id).get();
+        return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException(id));
     }
 
     public void delete(long id) {

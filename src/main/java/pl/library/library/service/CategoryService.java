@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import pl.library.library.model.Author;
+import pl.library.library.handler.CategoryNotFoundException;
 import pl.library.library.model.Category;
 import pl.library.library.repository.CategoryRepository;
 
@@ -27,7 +27,7 @@ public class CategoryService {
     }
 
     public Category get(long id) {
-        return categoryRepository.findById(id).get();
+        return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
     public void delete(long id) {

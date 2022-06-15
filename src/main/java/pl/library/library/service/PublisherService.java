@@ -6,9 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import pl.library.library.model.Author;
-import pl.library.library.model.Category;
-import pl.library.library.model.Lend;
+import pl.library.library.handler.PublisherNotFoundException;
 import pl.library.library.model.Publisher;
 import pl.library.library.repository.PublisherRepository;
 
@@ -29,7 +27,7 @@ public class PublisherService {
     }
 
     public Publisher get(long id) {
-        return publisherRepository.findById(id).get();
+        return publisherRepository.findById(id).orElseThrow(() -> new PublisherNotFoundException(id));
     }
 
     public void delete(long id) {
