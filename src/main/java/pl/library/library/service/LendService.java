@@ -6,10 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import pl.library.library.handler.BookNotFoundException;
-import pl.library.library.handler.CategoryNotFoundException;
-import pl.library.library.handler.LendNotFoundException;
-import pl.library.library.model.Category;
 import pl.library.library.model.Lend;
 import pl.library.library.repository.LendRepository;
 

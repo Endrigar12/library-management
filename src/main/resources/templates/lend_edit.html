@@ -43,10 +43,10 @@
                     <div class="form-group">
                         <label data-th-text="#{label.lend.reader}" for="reader">Reader: </label>
                         <select class="form-control" id="reader" th:field="*{reader}">
-                            <option value=""> -- </option>
                             <option th:each="reader : ${listReader}"
                                     th:value="${reader.id}"
-                                    th:utext="${reader.firstName +' '+reader.surname}"/>
+                                    th:utext="${reader.firstName +' '+reader.surname}"
+                            />
                         </select>
                     </div>
                     <div hidden>

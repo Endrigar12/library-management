@@ -16,11 +16,11 @@
                         404 <i class="fa fa-exclamation-triangle fa-fw"></i>
                     </h1>
                 </header>
-                <p id="fittext2">Not Found !</p>
+                <p id="fittext2" data-th-text="#{label.error.notFound}">Not Found!</p>
                 <h4>
-                    <span>The file is not exist which you are looking for..</span>
+                    <span data-th-text="#{label.error.text}">The file is not exist which you are looking for..</span>
                 </h4>
-                <br> <a th:href="@{/}">Back to home</a>
+                <br> <a th:href="@{/}" data-th-text="#{label.error.back}">Back to home</a>
             </article>
         </div>
     </body>

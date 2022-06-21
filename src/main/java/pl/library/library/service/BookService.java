@@ -22,7 +22,7 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public List<Book> listAll(String keyword) {
+    public List<Book> listAllSearch(String keyword) {
         if (keyword != null) {
             return bookRepository.search(keyword);
         }
