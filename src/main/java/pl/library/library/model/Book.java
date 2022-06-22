@@ -34,7 +34,7 @@ public class Book {
     @ManyToOne
     private Publisher publisher;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lend> lend;
 
     public Book(Long id, String title, int yearOfRelease, String description) {

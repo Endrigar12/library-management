@@ -50,7 +50,7 @@ public class Reader {
     private String postalCode;
 
 
-    @OneToMany(mappedBy = "reader")
+    @OneToMany(mappedBy = "reader", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lend> lend;
 
     public Reader(Long id, String firstName, String surname, String phoneNumber, String email, String address, String province, String postalCode) {

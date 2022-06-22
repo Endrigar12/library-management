@@ -8,16 +8,23 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.library.library.model.Author;
+import pl.library.library.model.Book;
+import pl.library.library.repository.AuthorRepository;
 import pl.library.library.service.AuthorService;
 
 import javax.validation.Valid;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class AuthorController {
 
     @Autowired
     private AuthorService authorService;
+
+    @Autowired
+    private AuthorRepository authorRepository;
 
     @RequestMapping("/authors")
     public String listAuthor(Model model) {
@@ -65,8 +72,9 @@ public class AuthorController {
         return "redirect:/authors";
     }
 
-    @RequestMapping("/author_delete/{id}")
+    @RequestMapping(value="/author_delete/{id}", method=RequestMethod.GET)
     public String deleteAuthor(@PathVariable(name = "id") Long id) {
+        Author author = authorService.get(id);
         authorService.delete(id);
         return "redirect:/authors";
     }

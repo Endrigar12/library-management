@@ -17,7 +17,7 @@ public class Publisher {
     @Size(min=2, max=50)
     private String name;
 
-    @OneToMany(mappedBy = "publisher")
+    @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Book> book;
 
     public Publisher(Long id, String name){

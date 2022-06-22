@@ -30,7 +30,7 @@ public class AuthorService {
         return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException(id));
     }
 
-    public void delete(long id) {
+    public void delete(Long id) {
         authorRepository.deleteById(id);
     }
 

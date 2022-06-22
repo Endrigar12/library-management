@@ -1,6 +1,7 @@
 package pl.library.library.model;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Author {
     private String surname;
 
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Book> book;
 
     public Author(Long id, String firstName, String surname){
